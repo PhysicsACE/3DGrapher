@@ -10,9 +10,8 @@ import { createGraph, resetCam } from './Logic/render';
 import { Typography, Dialog, DialogTitle, DialogContent, DialogContentText } from '@material-ui/core';
 import ToolBar from './components/toolbar';
 import { randomEq } from './Logic/random';
-import { constants, TokenStream } from 'Logic/Parser/tokenstream';
-import { parseEquation } from 'Logic/Parser/parseEquation';
-import { codegen, generateJSFunction } from 'Logic/Parser/codegen';
+import { parseEquation } from './Logic/Parser/parseEquation';
+import { codegen, generateJSFunction } from './Logic/Parser/codegen';
 
 var parsedvar
 
