@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { css } from '@emotion/css';
 
-import 'katex/dist/katex.min.css';
-
 import ResponsiveCanvas from './components/ResponsiveCanvas';
 import Sidebar from './components/Sidebar';
 
