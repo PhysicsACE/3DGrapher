@@ -3,7 +3,6 @@ import { css } from '@emotion/css';
 
 import Slider from '@material-ui/core/Slider';
 
-import { InlineMath } from 'react-katex';
 import EquationInput from './EquationInput'
 import Variable from './Variable';
 
