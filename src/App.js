@@ -31,7 +31,7 @@ function checkVar(v, implicit = false) {
     return v !== 'x' && v !== 'y' && v !== 'z'
   } 
 
-  return v !== 'x' && v !== 'y'
+  return v !== 'x' && v !== 'y' && v !== 'z'
 }
 
 function checkSubImplicit(split) {
