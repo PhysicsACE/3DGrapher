@@ -12,8 +12,32 @@ import ToolBar from './components/toolbar';
 import { randomEq } from './Logic/random';
 import { parseEquation } from './Logic/Parser/parseEquation';
 import { codegen, generateJSFunction } from './Logic/Parser/codegen';
+import { TokenStream } from './Logic/Parser/tokenstream';
 
 var parsedvar
+
+function checkImplicit(lhs, rhs) {
+  var lhstokens = new TokenStream(lhs).tokens()
+  var rhstokens = new TokenStream(rhs).tokens()
+  var lhsflag =  false
+  var rhsflag = false
+  for (var i = 0; i < lhstokens.length; i++) {
+    if (lhstokens[i].type === 'NAME' && lhstokens[i].value === 'z') {
+      lhsflag = true
+    }
+  }
+  for (var i = 0; i < rhstokens.length; i++) {
+    if (rhstokens[i].type === 'NAME' && rhstokens[i].value === 'z') {
+      rhsflag = true
+    }
+  }
+  if (lhsflag !== rhsflag) {
+    return true
+  }
+
+  return false
+
+}
 
 function getNewVar(l1, l2) {
   const newvar = []
@@ -96,7 +120,8 @@ function App() {
       return
     } else {
       console.log(split)
-      if (split.includes('z') || split.includes('z ')) {
+      console.log(checkImplicit(split[0], split[1]))
+      if ((split.includes('z') || split.includes('z ')) && checkImplicit(split[0], split[1])) {
         setGraphType('default')
         if (split.includes('') || split.includes(' ')) {
           return
