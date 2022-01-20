@@ -5,9 +5,10 @@ function RightNumberInput ({valChange, value}) {
 
     const [isEditing, setIsEditing] = useState(false)
     const [max, setMax] = useState(1)
+    console.log(value)
 
     return (
-        <input className='maxLimit' type='text' defaultValue={value.toString()} onChange={e => valChange(e.target.value)} style={{textAlign: 'center'}}/>
+        <input className='maxLimit' type='text' value={value.toString()} onChange={e => valChange(e.target.value)} style={{textAlign: 'center'}}/>
     )
 }
 

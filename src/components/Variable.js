@@ -108,6 +108,7 @@ class Variable extends Component {
     }
 
     render () {
+      console.log(this.props.variableInfo)
         return (
             <div className='container'>
                 <div className={'variableName-' + this.props.variableInfo[3]} onClick={this.startPlaying}> {this.props.letter} </div>

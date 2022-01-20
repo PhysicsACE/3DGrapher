@@ -3,7 +3,7 @@ import './styles.css'
 
 function LeftNumberInput ({valChange, value}) {
     return (
-        <input className='minLimit' type='text' defaultValue={value.toString()} onChange={e => valChange(e.target.value)} style={{textAlign: 'center'}}/>
+        <input className='minLimit' type='text' value={value.toString()} onChange={e => valChange(e.target.value)} style={{textAlign: 'center'}}/>
     )
 }
 

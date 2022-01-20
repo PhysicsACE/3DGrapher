@@ -77,6 +77,7 @@ function App() {
   const [playing, setPlaying] = useState([])
   const [graphType, setGraphType] = useState('')
   const [modalState, setModalState] = useState(false)
+  const [randomSet, setRandomSet] = useState(false)
 
   const setPlay = (letter) => {
     const temp = [...playing]
@@ -148,14 +149,18 @@ function App() {
               for (let v = 0; v < newvar.length; v++) {
                 oldvar[newvar[v]] = [0, 1, 0.5, false]
               }
-              setVariables(oldvar)
+              if (!randomSet) {
+                setVariables(oldvar)
+              }
             } else {
               const newvar = getNewVar(Object.keys(variables), parsedvar)
               const oldvar = JSON.parse(JSON.stringify(variables))
               for (let v of newvar) {
                 delete oldvar[v]
               }
-              setVariables(oldvar)
+              if (!randomSet) {
+                setVariables(oldvar)
+              }
             }
           } else if (parsedvar.sort() !== Object.keys(variables).sort()) {
             const newvar = getNewVar(parsedvar, Object.keys(variables))
@@ -167,7 +172,9 @@ function App() {
             for (let v = 0; v < newvar.length; v++) {
               oldvar[newvar[v]] = [0, 1, 0.5, false]
             }
-            setVariables(oldvar)
+            if (!randomSet) {
+              setVariables(oldvar)
+            }
           }
     
           createGraph(equation, variables, graphType)
@@ -200,14 +207,18 @@ function App() {
                 for (let v = 0; v < newvar.length; v++) {
                   oldvar[newvar[v]] = [0, 1, 0.5, false]
                 }
-                setVariables(oldvar)
+                if (!randomSet) {
+                  setVariables(oldvar)
+                }
               } else {
                 const newvar = getNewVar(Object.keys(variables), parsedvar)
                 const oldvar = JSON.parse(JSON.stringify(variables))
                 for (let v of newvar) {
                   delete oldvar[v]
                 }
-                setVariables(oldvar)
+                if (!randomSet) {
+                  setVariables(oldvar)
+                }
               }
             } else if (parsedvar.sort() !== Object.keys(variables).sort()) {
               const newvar = getNewVar(parsedvar, Object.keys(variables))
@@ -219,7 +230,9 @@ function App() {
               for (let v = 0; v < newvar.length; v++) {
                 oldvar[newvar[v]] = [0, 1, 0.5, false]
               }
-              setVariables(oldvar)
+              if (!randomSet) {
+                setVariables(oldvar)
+              }
             }
 
             createGraph(equation, variables, graphType)
@@ -242,14 +255,18 @@ function App() {
               for (let v = 0; v < newvar.length; v++) {
                 oldvar[newvar[v]] = [0, 1, 0.5, false]
               }
-              setVariables(oldvar)
+              if (!randomSet) {
+                setVariables(oldvar)
+              }
             } else {
               const newvar = getNewVar(Object.keys(variables), parsedvar)
               const oldvar = JSON.parse(JSON.stringify(variables))
               for (let v of newvar) {
                 delete oldvar[v]
               }
-              setVariables(oldvar)
+              if (!randomSet) {
+                setVariables(oldvar)
+              }
             }
           } else if (parsedvar.sort() !== Object.keys(variables).sort()) {
             const newvar = getNewVar(parsedvar, Object.keys(variables))
@@ -261,7 +278,9 @@ function App() {
             for (let v = 0; v < newvar.length; v++) {
               oldvar[newvar[v]] = [0, 1, 0.5, false]
             }
-            setVariables(oldvar)
+            if (!randomSet) {
+              setVariables(oldvar)
+            }
           }
 
           createGraph(equation, variables, graphType)
@@ -269,7 +288,7 @@ function App() {
         } catch(error) {
           console.log(error)
         }
-      } else if (!equation) {
+      } else if (equation === '') {
         setVariables({})
       } else {
         return
@@ -283,6 +302,11 @@ function App() {
     const oldvar = JSON.parse(JSON.stringify(variables))
     oldvar[letter] = info
     setVariables(oldvar)
+  }
+
+  const equationChange = (eq) => {
+    setEquation(eq)
+    setRandomSet(false)
   }
 
   const changeValue = (letter, info) => {
@@ -299,6 +323,10 @@ function App() {
 
   const nextValue = (letter) => {
     if (variables[letter][2] >= variables[letter][1]) {
+      stopPlay(letter)
+      var temp = [...variables[letter]]
+      temp[3] = false
+      changeVar(letter, temp)
       return variables[letter][0]
     } else {
       return variables[letter][2] += getStep(letter)
@@ -306,6 +334,7 @@ function App() {
   }
 
   const setRandom = () => {
+    setRandomSet(true)
     const random = randomEq()
     setEquation(random[0])
     setVariables(random[1])
@@ -348,7 +377,7 @@ function App() {
               <Sidebar
                   equation={equation}
                   variables={variables}
-                  equationChange={setEquation}
+                  equationChange={equationChange}
                   variableChange={changeVar}
                   changeValue={changeValue}
                   setPlay={setPlay}
